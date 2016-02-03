@@ -1,15 +1,14 @@
 <?php
-require_once 'vendor/autoload.php';
 session_start();
+require_once 'vendor/autoload.php';
+require_once 'Config.php';
 
-$clientId = '81678134426-l5mn5976kle6e69j7ffgsd0pd68rvrlf.apps.googleusercontent.com';
-$clientSecret = '8_NYYvtjpxfS6EEF5QavYHCR';
-$redirectUrl = 'http://localhost/facebook-googlesheet/auth2.php';
+$clientId = CLIENT_ID;
+$clientSecret = CLIENT_SECRET;
+$redirectUrl = REDIRECT_URL;
 // -----------------------------------------------------------------------------
 // DO NOT EDIT BELOW THIS LINE
 // -----------------------------------------------------------------------------
-//require_once 'src/Google_Client.php';
-
 $client = new Google_Client();
 $client->setClientId($clientId);
 $client->setClientSecret($clientSecret);
@@ -23,6 +22,6 @@ if (! isset($_GET['code'])) {
 } else {
 	$client->authenticate($_GET['code']);
 	$_SESSION['access_token'] = $client->getAccessToken();
-	$redirect_uri = 'http://localhost/facebook-googlesheet/index.php';
+	$redirect_uri = DOMAIN . 'index.php';
 	header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }

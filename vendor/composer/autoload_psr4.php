@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Lib\\' => array($baseDir . '/Lib'),
     'Google\\' => array($vendorDir . '/asimlqt/php-google-spreadsheet-client/src/Google'),
 );

@@ -1,22 +1,15 @@
 <?php
-require_once 'vendor/autoload.php';
-require_once 'Config.php';
 session_start();
 
-function dd($data)
-{
-	echo "<pre>";
-	print_r($data);
-	echo "</pre>";
-}
+require_once 'vendor/autoload.php';
+require_once 'Config.php';
+require_once 'GoogleSheet.php';
 
-$clientId = '81678134426-l5mn5976kle6e69j7ffgsd0pd68rvrlf.apps.googleusercontent.com';
-$clientSecret = '8_NYYvtjpxfS6EEF5QavYHCR';
-$redirectUrl = 'http://localhost/facebook-googlesheet/auth2.php';
-// -----------------------------------------------------------------------------
-// DO NOT EDIT BELOW THIS LINE
-// -----------------------------------------------------------------------------
-//require_once 'src/Google_Client.php';
+use \Lib\Common;
+
+$clientId = CLIENT_ID;
+$clientSecret = CLIENT_SECRET;
+$redirectUrl = REDIRECT_URL;
 
 $client = new Google_Client();
 $client->setClientId($clientId);
@@ -29,25 +22,96 @@ $client->setScopes(array('https://spreadsheets.google.com/feeds'));
     //exit;
 //}
 //print '<a href="' . $client->createAuthUrl() . '">Authenticate</a>';
-$accessToken = $_SESSION['access_token'];
-$service_token = json_decode($accessToken);
+
+//$accessToken = $_SESSION['access_token'];
+//$service_token = json_decode($accessToken);
 
 use Google\Spreadsheet\DefaultServiceRequest;
 use Google\Spreadsheet\ServiceRequestFactory;
 
-$serviceRequest = new DefaultServiceRequest($service_token->access_token);
+$serviceRequest = new DefaultServiceRequest(Common::getAccessToken($_SESSION['access_token']));
 ServiceRequestFactory::setInstance($serviceRequest);
 
-$spreadsheetService = new Google\Spreadsheet\SpreadsheetService();
-$spreadsheetFeed = $spreadsheetService->getSpreadsheets();
-//$spreadsheet = $spreadsheetFeed->getByTitle('test');
+$spreadsheetFeed = GoogleSheet::getAllSpreadSheetFeed();
+
+?>
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Title Page</title>
+
+	<!-- Bootstrap CSS -->
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<h1 class="text-center">Facebook Feed Into GoogleSheet</h1>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<form action="" method="post">
+				<div class="form-group">
+					<label for="">SpreadSheet</label>
+					<select name="spreadsheet" id="spreadsheet" class="form-control">
+						<option value="">Select SpreadSheet</option>
+						<?php foreach ($spreadsheetFeed as $key => $value) : ?>
+							<option value="<?=$spreadsheetFeed[$key]->getTitle()?>"><?=$spreadsheetFeed[$key]->getTitle()?></option>
+						<?php endforeach ?>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="">WorkSheet</label>
+					<select name="worksheet" id="worksheet" class="form-control">
+						<option value="">Select WorkSheet</option>
+
+					</select>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 
-//dd($worksheetFeed);
-//$listFeed = new Google\Spreadsheet\ListFeed($spreadsheetFeed)->getEntries();
-foreach ($spreadsheetFeed as $key => $value) {
-	dd($spreadsheetFeed[$key]->getTitle());
-}
-// echo "<pre>";
-// print_r($spreadsheetFeed);
-// echo "</pre>";
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var spreadSheetFeed = $('#spreadsheet'),
+			url = 'page/get-worksheet.php/?feedTitle=';
+
+		spreadSheetFeed.change(function(){
+			var feedTitle = $(this).val();
+			$.ajax({
+				type: "GET",
+				dataType: "json",
+				url: url + feedTitle,
+				success: function(data) {
+					console.log(data);
+					$('#worksheet :not(:first-child)').remove();
+					$.each(data, function(index, title){
+						$('#worksheet').append('<option>' + title + '</option>');
+					});
+				}
+			});
+		});
+
+
+	});
+</script>
+
+</body>
+</html>

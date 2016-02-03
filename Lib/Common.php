@@ -16,8 +16,18 @@ class Common
         
     }
 
-    public static function getAccessToken()
+    public static function getAccessToken($sessionToken)
     {
-        
+        $accessToken = $sessionToken;
+        $service_token = json_decode($accessToken);
+
+        return $service_token->access_token;
+    }
+
+    public static function dd($data)
+    {
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
     }
 }
