@@ -8,6 +8,7 @@
 
 namespace Lib;
 
+use \GuzzleHttp\Exception\ClientException;
 
 class Common
 {
@@ -30,4 +31,5 @@ class Common
         print_r($data);
         echo "</pre>";
     }
+
 }

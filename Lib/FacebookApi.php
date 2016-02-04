@@ -67,6 +67,6 @@ class FacebookApi
         $response = $fb->getClient()->sendRequest($request);
         $groups = $response->getDecodedBody();
 
-        \Lib\Common::dd($groups);
+        //\Lib\Common::dd($groups);
     }
 }

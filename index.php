@@ -19,18 +19,12 @@ $client->setScopes(array('https://spreadsheets.google.com/feeds'));
 
 
 if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
-	/*$client->setAccessToken($_SESSION['access_token']);*/
-//	Common::dd($_SESSION['access_token']);
-//	$google_token= json_decode($_SESSION['access_token']);
-//	if ($google_token->refresh_token) {
-//		$client->refreshToken($google_token->refresh_token);
-//		$_SESSION['access_token'] = $client->getAccessToken();
-//	}
-} else {
-	$auth_url = $client->createAuthUrl();
-	header('Location: '. REDIRECT_URL);
-	//header('Location: ' . filter_var($redirectUrl, FILTER_SANITIZE_URL));
-	exit;
+	$baba = json_decode($_SESSION['access_token']);
+
+	if(isset($baba->refresh_token) && $baba->refresh_token !== '') {
+		$auth_url = $client->createAuthUrl();
+		header('Location: '. REDIRECT_URL);
+	}
 }
 
 
