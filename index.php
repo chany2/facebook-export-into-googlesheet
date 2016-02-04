@@ -18,14 +18,12 @@ $client->setRedirectUri($redirectUrl);
 $client->setScopes(array('https://spreadsheets.google.com/feeds'));
 
 
-if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
-	$baba = json_decode($_SESSION['access_token']);
-
-	if(isset($baba->refresh_token) && $baba->refresh_token !== '') {
-		$auth_url = $client->createAuthUrl();
-		header('Location: '. REDIRECT_URL);
-	}
+if($client->isAccessTokenExpired())
+{
+	/*$auth_url = $client->createAuthUrl();
+	header('Location: '. REDIRECT_URL);*/
 }
+
 
 
 use Google\Spreadsheet\DefaultServiceRequest;
@@ -59,7 +57,7 @@ $fb = new Facebook\Facebook([
 if (isset($_SESSION['facebook_access_token']) && $_SESSION['facebook_access_token']) {
 	$fb_user_id = \Lib\FacebookApi::getMe()['id'];
 
-	\Lib\FacebookApi::getUserGroup($fb_user_id);
+	//\Lib\FacebookApi::getUserGroup($fb_user_id);
 
 } else {
 	$fb_user_id = '';
@@ -80,7 +78,8 @@ if (isset($_SESSION['facebook_access_token']) && $_SESSION['facebook_access_toke
 		'/985711858146481/feed',
 		array(
 			'fields' => 'admin_creator,created_time,description,from,name,likes{name},comments,message,link'
-		)
+		),
+		'limit' => 100
 );
 
 $response = $fb->getClient()->sendRequest($request);
@@ -105,6 +104,19 @@ foreach ($graphObject as $key => $object)
 //GoogleSheet::addListRow('test2', 'Sheet 1', $fbData);
 //Common::dd($fbData);
 
+
+//handle fetch facebook feed and exporting into Google Sheet
+if (isset($_POST['submit']) && $_POST['submit'] == 'Export')
+{
+	$post_spreadSheetFeed = $_POST['spreadsheet'];
+	$post_workSheet = $_POST['worksheet'];
+	$_post_fbID = $_POST['facebook_user_id'];
+
+	$facebookListFeeds = \Lib\FacebookApi::getListFeeds($_post_fbID, 10);
+	Common::dd($facebookListFeeds);
+	//Insert data into Google Sheet
+	GoogleSheet::addListRow($post_spreadSheetFeed, $post_workSheet, $facebookListFeeds);
+}
 
 
 ?>
@@ -136,7 +148,7 @@ foreach ($graphObject as $key => $object)
 <?php endif ?>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8 col-sm-offset-2">
+		<div class="col-sm-6 col-sm-offset-3">
 			<form action="" method="post">
 				<div class="form-group">
 					<label for="">Facebook User ID</label>

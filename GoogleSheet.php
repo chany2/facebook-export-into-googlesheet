@@ -61,19 +61,23 @@ class GoogleSheet
     public static function getOnlyFieldFromListBaseFeed($sheet, $workSheetName, $field)
     {
         $listBaseFeeds = self::getListBaseFeed($sheet, $workSheetName);
+        $fields = [];
+        $values = [];
 
         foreach ($listBaseFeeds->getEntries() as $entry)
         {
             $values[] = $entry->getValues();
         }
 
-        //$totalEntry = count($values);
-        $fields = '';
         $i=0;
-        foreach ($values as $value) {
-            $fields[] = $values[$i][$field];
-            $i++;
+        if (count($values) > 0)
+        {
+            foreach ($values as $value) {
+                $fields[] = $values[$i][$field];
+                $i++;
+            }
         }
+
 
         return $fields;
     }
@@ -99,7 +103,7 @@ class GoogleSheet
 
         foreach ($data as $row)
         {
-            if (!in_array($row['id'], $currentId)) {
+            if (!in_array($row['id'], (array)$currentId)) {
 
                 $listFeed->insert($row);
             }
