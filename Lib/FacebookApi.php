@@ -72,6 +72,7 @@ class FacebookApi
 
     /*
      * Get list user feeds
+     * Note: Header name of Google sheet must to be lowercase and no-space
      */
 
     public static function getListFeeds($fb_id, $limit)
@@ -96,9 +97,9 @@ class FacebookApi
         $response = $fb->getClient()->sendRequest($request);
         $graphObject = $response->getDecodedBody()['data'];
         $fbData = [];
-
+        $i = 1;
         foreach ($graphObject as $key => $object) {
-            $dateCreated = new \DateTime($object['created_time']);
+            $createdDate = new \DateTime($object['created_time']);
             $fbData[] = [
                 'id' => $object['id'],
                 'from' => $object['from']['name'],
@@ -106,10 +107,12 @@ class FacebookApi
                 'name' => isset($object['name']) ? $object['name'] : '',
                 'description' => isset($object['description']) ? $object['description'] : '',
                 'message' => isset($object['message']) ? $object['message'] : '',
-                'created_time' => $object['created_time'],
+                'date' => $createdDate->format('d/m/Y h:i:s'),
                 'comments' => isset($object['comments']['data']) ? count($object['comments']['data']) : 0,
-                'likes' => isset($object['likes']['data']) ? count($object['likes']['data']) : 0,
+                'likes' => isset($object['likes']['data']) ? count($object['likes']['data']) : 0
             ];
+
+            $i++;
         }
 
         return $fbData;

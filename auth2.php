@@ -15,7 +15,6 @@ $client->setClientSecret($clientSecret);
 $client->setRedirectUri($redirectUrl);
 $client->setApplicationName("FaceBook Feed Into GoogleSheet");
 $client->setAccessType('offline');
-//$client->setApprovalPrompt('force');
 $client->setScopes(array('https://spreadsheets.google.com/feeds'));
 
 // Handle authorization flow from the server.

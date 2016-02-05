@@ -94,11 +94,6 @@ class GoogleSheet
         $worksheet = $worksheetFeed->getByTitle($workSheetName);
         $listFeed = $worksheet->getListFeed();
 
-        /*$rows = [
-            array('username'=>'John3', 'address'=> 'Tinh Khe1', 'phone' => '1'),
-            array('username'=>'John4', 'address'=> 'Tinh Khe2', 'phone' => '2'),
-        ];*/
-
         $currentId = self::getOnlyFieldFromListBaseFeed($sheet, $workSheetName, 'id');
 
         foreach ($data as $row)
