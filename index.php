@@ -61,7 +61,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Export')
 	$post_workSheet = $_POST['worksheet'];
 	$_post_fbID = $_POST['facebook_user_id'];
 
-	$facebookListFeeds = \Lib\FacebookApi::getListFeeds($_post_fbID, 50); // 10 is limit value. We can change to the value we need
+	$facebookListFeeds = \Lib\FacebookApi::getListFeeds($_post_fbID, 5); // 10 is limit value. We can change to the value we need
 
 	//Insert data into Google Sheet
 	GoogleSheet::addListRow($post_spreadSheetFeed, $post_workSheet, $facebookListFeeds);
@@ -120,7 +120,11 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Export')
 					</select>
 				</div>
 
-				<input type="submit" value="Export" name="submit" class="btn btn-primary"/>
+				<!--<input type="submit" value="Export" name="submit" class="btn btn-primary"/>-->
+				<button type="button" id="myButton" data-loading-text="Exporting..." class="btn btn-primary" autocomplete="off">
+					Click to Export
+				</button>
+
 			</form>
 		</div>
 	</div>
@@ -133,6 +137,14 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Export')
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="js/main.js"></script>
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#myButton').on('click', function () {
+			var $btn = $(this).button('loading');
+			// business logic...
+			$btn.button('reset');
+		});
+	});
+</script>
 </body>
 </html>

@@ -96,9 +96,9 @@ class FacebookApi
         $response = $fb->getClient()->sendRequest($request);
         $graphObject = $response->getDecodedBody()['data'];
         $fbData = [];
-
+        $i = 1;
         foreach ($graphObject as $key => $object) {
-            $dateCreated = new \DateTime($object['created_time']);
+
             $fbData[] = [
                 'id' => $object['id'],
                 'from' => $object['from']['name'],
@@ -106,10 +106,12 @@ class FacebookApi
                 'name' => isset($object['name']) ? $object['name'] : '',
                 'description' => isset($object['description']) ? $object['description'] : '',
                 'message' => isset($object['message']) ? $object['message'] : '',
+                'date' => $object['created_time'],
                 'comments' => isset($object['comments']['data']) ? count($object['comments']['data']) : 0,
-                'likes' => isset($object['likes']['data']) ? count($object['likes']['data']) : 0,
-                'created_time' => $object['created_time']
+                'likes' => isset($object['likes']['data']) ? count($object['likes']['data']) : 0
             ];
+
+            $i++;
         }
 
         return $fbData;
