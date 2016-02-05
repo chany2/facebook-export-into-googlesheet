@@ -6,8 +6,8 @@
  * Time: 4:06 PM
  */
 session_start();
-ini_set('max_execution_time', 600); //300 seconds = 5 minutes
-ini_set('memory_limit ', '128M');
+ini_set('max_execution_time', 1200); //300 seconds = 5 minutes
+ini_set('memory_limit ', '521M');
 
 require_once '../vendor/autoload.php';
 require_once '../GoogleSheet.php';

@@ -1,27 +1,18 @@
 <?php
 session_start();
 
-ini_set('max_execution_time', 600); //300 seconds = 5 minutes
-ini_set('memory_limit ', '128M');
+ini_set('max_execution_time', 1200); //300 seconds = 5 minutes
+ini_set('memory_limit ', '521M');
 
 require_once 'vendor/autoload.php';
 require_once 'Config.php';
 require_once 'GoogleSheet.php';
 
 use \Lib\Common;
-
-$clientId = CLIENT_ID;
-$clientSecret = CLIENT_SECRET;
-$redirectUrl = REDIRECT_URL;
-
-$client = new Google_Client();
-$client->setClientId($clientId);
-$client->setClientSecret($clientSecret);
-$client->setRedirectUri($redirectUrl);
-$client->setScopes(array('https://spreadsheets.google.com/feeds'));
-
 use Google\Spreadsheet\DefaultServiceRequest;
 use Google\Spreadsheet\ServiceRequestFactory;
+
+
 
 $serviceRequest = new DefaultServiceRequest(Common::getGoogleTokenFromKeyFile());
 ServiceRequestFactory::setInstance($serviceRequest);
