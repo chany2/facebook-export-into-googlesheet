@@ -57,14 +57,14 @@ if (isset($_SESSION['facebook_access_token']) && $_SESSION['facebook_access_toke
 //handle fetch facebook feed and exporting into Google Sheet
 if (isset($_POST['submit']) && $_POST['submit'] == 'Export')
 {
-	$post_spreadSheetFeed = $_POST['spreadsheet'];
+	/*$post_spreadSheetFeed = $_POST['spreadsheet'];
 	$post_workSheet = $_POST['worksheet'];
 	$_post_fbID = $_POST['facebook_user_id'];
 
 	$facebookListFeeds = \Lib\FacebookApi::getListFeeds($_post_fbID, 5); // 10 is limit value. We can change to the value we need
 
 	//Insert data into Google Sheet
-	GoogleSheet::addListRow($post_spreadSheetFeed, $post_workSheet, $facebookListFeeds);
+	GoogleSheet::addListRow($post_spreadSheetFeed, $post_workSheet, $facebookListFeeds);*/
 }
 
 ?>
@@ -97,7 +97,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Export')
 <div class="container">
 	<div class="row">
 		<div class="col-sm-6 col-sm-offset-3">
-			<form action="" method="post">
+			<form action="" method="post" id="frm">
 				<div class="form-group">
 					<label for="">Facebook User ID</label>
 					<input type="text" name="facebook_user_id" id="facebook_user_id" class="form-control" value="<?=$fb_user_id?>">
@@ -121,7 +121,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Export')
 				</div>
 
 				<!--<input type="submit" value="Export" name="submit" class="btn btn-primary"/>-->
-				<button type="button" id="myButton" data-loading-text="Exporting..." class="btn btn-primary" autocomplete="off">
+				<button type="button" id="exportingButton" data-loading-text="Exporting..." class="btn btn-primary" autocomplete="off">
 					Click to Export
 				</button>
 
@@ -138,13 +138,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Export')
 
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#myButton').on('click', function () {
-			var $btn = $(this).button('loading');
-			// business logic...
-			$btn.button('reset');
-		});
-	});
+
 </script>
 </body>
 </html>

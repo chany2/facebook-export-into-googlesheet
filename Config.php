@@ -21,3 +21,7 @@ const SERVICE_EMAIL = 'my-webservice-2@api-project-81678134426.iam.gserviceaccou
 const FACEBOOK_API_KEY = '872365952794421'; // Change to your api key
 const FACEBOOK_API_SECRET = 'ffc6b9458fc8139a7b30b53e8d567547'; // Change to your api secret
 const FACEBOOK_CALLBACK = 'http://localhost/facebook-export-into-googlesheet/fb-callback.php'; // Change to your domain
+
+
+// Number item for each query when fetch data from Facebook Feed
+const LIMIT_ITEM_PERPAGE = 50;
