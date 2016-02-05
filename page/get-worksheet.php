@@ -8,13 +8,15 @@ session_start();
  */
 require_once '../vendor/autoload.php';
 require_once '../GoogleSheet.php';
+require_once '../Config.php';
 
 $feedTitle = $_GET['feedTitle'];
 
 use Google\Spreadsheet\DefaultServiceRequest;
 use Google\Spreadsheet\ServiceRequestFactory;
+use Lib\Common;
 
-$serviceRequest = new DefaultServiceRequest(\Lib\Common::getAccessToken($_SESSION['access_token']));
+$serviceRequest = new DefaultServiceRequest(Common::getGoogleTokenFromKeyFile());
 ServiceRequestFactory::setInstance($serviceRequest);
 
 $spreadsheetService = new Google\Spreadsheet\SpreadsheetService();

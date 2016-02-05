@@ -106,9 +106,9 @@ class FacebookApi
                 'name' => isset($object['name']) ? $object['name'] : '',
                 'description' => isset($object['description']) ? $object['description'] : '',
                 'message' => isset($object['message']) ? $object['message'] : '',
-                'created_time' => $object['created_time'],
                 'comments' => isset($object['comments']['data']) ? count($object['comments']['data']) : 0,
                 'likes' => isset($object['likes']['data']) ? count($object['likes']['data']) : 0,
+                'created_time' => $object['created_time']
             ];
         }
 
