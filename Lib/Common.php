@@ -10,7 +10,6 @@ namespace Lib;
 
 require_once '/Config.php';
 
-use \GuzzleHttp\Exception\ClientException;
 
 class Common
 {
@@ -18,13 +17,13 @@ class Common
     {
     }
 
-    public static function getAccessToken($sessionToken)
+    /*public static function getAccessToken($sessionToken)
     {
         $accessToken = $sessionToken;
         $service_token = json_decode($accessToken);
 
         return $service_token->access_token;
-    }
+    }*/
 
     public static function dd($data)
     {

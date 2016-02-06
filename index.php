@@ -1,25 +1,16 @@
 <?php
 session_start();
 
-ini_set('max_execution_time', 600); //300 seconds = 5 minutes
-ini_set('memory_limit ', '128M');
+ini_set('max_execution_time', 1200); //300 seconds = 5 minutes
+ini_set('memory_limit ', '521M');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 require_once 'vendor/autoload.php';
 require_once 'Config.php';
 require_once 'GoogleSheet.php';
 
-use \Lib\Common;
-
-$clientId = CLIENT_ID;
-$clientSecret = CLIENT_SECRET;
-$redirectUrl = REDIRECT_URL;
-
-$client = new Google_Client();
-$client->setClientId($clientId);
-$client->setClientSecret($clientSecret);
-$client->setRedirectUri($redirectUrl);
-$client->setScopes(array('https://spreadsheets.google.com/feeds'));
-
+use Lib\Common;
 use Google\Spreadsheet\DefaultServiceRequest;
 use Google\Spreadsheet\ServiceRequestFactory;
 
@@ -27,7 +18,6 @@ $serviceRequest = new DefaultServiceRequest(Common::getGoogleTokenFromKeyFile())
 ServiceRequestFactory::setInstance($serviceRequest);
 
 $spreadsheetFeed = GoogleSheet::getAllSpreadSheetFeed();
-
 
 /*
  * Facebook Area
@@ -51,20 +41,6 @@ if (isset($_SESSION['facebook_access_token']) && $_SESSION['facebook_access_toke
 	$permissions = ['email', 'user_posts']; // optional
 	$callback = FACEBOOK_CALLBACK;
 	$loginUrl = $helper->getLoginUrl($callback, $permissions);
-}
-
-
-//handle fetch facebook feed and exporting into Google Sheet
-if (isset($_POST['submit']) && $_POST['submit'] == 'Export')
-{
-	/*$post_spreadSheetFeed = $_POST['spreadsheet'];
-	$post_workSheet = $_POST['worksheet'];
-	$_post_fbID = $_POST['facebook_user_id'];
-
-	$facebookListFeeds = \Lib\FacebookApi::getListFeeds($_post_fbID, 5); // 10 is limit value. We can change to the value we need
-
-	//Insert data into Google Sheet
-	GoogleSheet::addListRow($post_spreadSheetFeed, $post_workSheet, $facebookListFeeds);*/
 }
 
 ?>

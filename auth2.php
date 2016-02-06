@@ -1,5 +1,5 @@
 <?php
-session_start();
+/*session_start();
 require_once 'vendor/autoload.php';
 require_once 'Config.php';
 
@@ -26,4 +26,4 @@ if (! isset($_GET['code'])) {
 	$_SESSION['access_token'] = $client->getAccessToken();
 	$redirect_uri = DOMAIN . 'index.php';
 	header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-}
+}*/
