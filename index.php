@@ -3,7 +3,7 @@ session_start();
 
 ini_set('max_execution_time', 1200); //300 seconds = 5 minutes
 ini_set('memory_limit ', '521M');
-error_reporting();
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once 'vendor/autoload.php';
