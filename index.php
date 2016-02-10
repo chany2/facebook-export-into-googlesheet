@@ -7,8 +7,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once 'vendor/autoload.php';
-require_once 'Config.php';
-require_once 'GoogleSheet.php';
+require_once __DIR__ . '/Config.php';
+require_once __DIR__ . '/GoogleSheet.php';
 
 use Lib\Common;
 use Google\Spreadsheet\DefaultServiceRequest;
