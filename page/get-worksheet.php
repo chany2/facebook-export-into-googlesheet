@@ -6,9 +6,9 @@ session_start();
  * Date: 02/03/16
  * Time: 4:06 PM
  */
-require_once '../vendor/autoload.php';
-require_once '../GoogleSheet.php';
-require_once '../Config.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../GoogleSheet.php';
+require_once __DIR__ . '/../Config.php';
 
 $feedTitle = $_GET['feedTitle'];
 

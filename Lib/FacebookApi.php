@@ -8,7 +8,9 @@
 
 namespace Lib;
 
-require_once '/Config.php';
+require_once __DIR__ .'/../Config.php';
+
+use Ipalaus\Buffer\Button;
 
 class FacebookApi
 {
@@ -77,6 +79,7 @@ class FacebookApi
 
     public static function getListFeeds($fb_id, $limit)
     {
+
         $fb = new \Facebook\Facebook([
             'app_id' => FACEBOOK_API_KEY,
             'app_secret' => FACEBOOK_API_SECRET,
@@ -89,7 +92,7 @@ class FacebookApi
             'GET',
             '/'.$fb_id.'/feed',
             array(
-                'fields' => 'admin_creator,created_time,description,from,name,likes{name},comments,message,link',
+                'fields' => 'admin_creator,created_time,description,from,name,message,link,comments.limit(1).summary(true),likes.limit(1).summary(true)',
                 'limit' => $limit
             )
         );
@@ -99,7 +102,12 @@ class FacebookApi
         $fbData = [];
         $i = 1;
         foreach ($graphObject as $key => $object) {
-            $createdDate = new \DateTime($object['created_time']);
+            $createdDate = $object['created_time'];
+            $date_arr = explode('T', $createdDate);
+
+            $linkToButton = isset($object['link']) ? $object['link'] : null;
+            $messageToButton = isset($object['message']) ? $object['message'] : null;
+
             $fbData[] = [
                 'id' => $object['id'],
                 'from' => $object['from']['name'],
@@ -107,9 +115,11 @@ class FacebookApi
                 'name' => isset($object['name']) ? $object['name'] : '',
                 'description' => isset($object['description']) ? $object['description'] : '',
                 'message' => isset($object['message']) ? $object['message'] : '',
-                'date' => $createdDate->format('d/m/Y h:i:s'),
-                'comments' => isset($object['comments']['data']) ? count($object['comments']['data']) : 0,
-                'likes' => isset($object['likes']['data']) ? count($object['likes']['data']) : 0
+                'date' => $date_arr[0], 
+                'time' => $date_arr[1],
+                'comments' => isset($object['comments']['summary']['total_count']) ? $object['comments']['summary']['total_count'] : 0,
+                'likes' => isset($object['likes']['summary']['total_count']) ? $object['likes']['summary']['total_count'] : 0,
+                'button'    => Button::create('vertical', $messageToButton, $linkToButton, $username = null, $picture = null)
             ];
 
             $i++;

@@ -7,7 +7,7 @@
  */
 session_start();
 require_once 'vendor/autoload.php';
-require_once 'Config.php';
+require_once __DIR__ .'/Config.php';
 
 $fb = new Facebook\Facebook([
     'app_id' => FACEBOOK_API_KEY,

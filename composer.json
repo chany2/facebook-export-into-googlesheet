@@ -3,7 +3,8 @@
         "asimlqt/php-google-spreadsheet-client": "2.3.*",
         "google/apiclient": "1.0.*@beta",
         "facebook/php-sdk-v4" : "~5.0",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "ipalaus/buffer-php-sdk": "1.1.*"
     },
     "autoload": {
         "psr-4": {
