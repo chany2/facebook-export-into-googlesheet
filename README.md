@@ -23,7 +23,7 @@ Google Sheet
  1. Invite Service Email Address to Google Sheet   ![](https://raw.githubusercontent.com/chany2/facebook-export-into-googlesheet/master/Readme/Copy%20Client%20Id%20and%20Service%20email%20address%20.png)
  2. Create these columns    ![](https://raw.githubusercontent.com/chany2/facebook-export-into-googlesheet/master/Readme/google%20sheet%20columns.png) 
  3. Add your Facebook Group ID    ![](https://raw.githubusercontent.com/chany2/facebook-export-into-googlesheet/master/Readme/homepage%20to%20export.png) 
- 
+ 4. Click Export! 
 
 References
 -------------
