@@ -11,13 +11,6 @@ require_once __DIR__ . '/Config.php';
 require_once __DIR__ . '/GoogleSheet.php';
 
 use Lib\Common;
-/*use Google\Spreadsheet\DefaultServiceRequest;
-use Google\Spreadsheet\ServiceRequestFactory;
-
-$serviceRequest = new DefaultServiceRequest(Common::getGoogleTokenFromKeyFile());
-ServiceRequestFactory::setInstance($serviceRequest);
-
-$spreadsheetFeed = GoogleSheet::getAllSpreadSheetFeed();*/
 
 /*
  * Facebook Area
@@ -79,7 +72,6 @@ if (isset($_SESSION['facebook_access_token']) && $_SESSION['facebook_access_toke
                     <input type="text" name="facebook_user_id" id="facebook_user_id" class="form-control" value="<?=$fb_user_id?>">
                 </div>
 
-                <!--<input type="submit" value="Export" name="submit" class="btn btn-primary"/>-->
                 <button type="button" id="exportingFbGroup" data-loading-text="Exporting..." class="btn btn-primary" autocomplete="off">
                     Click to Export
                 </button>
@@ -100,7 +92,7 @@ if (isset($_SESSION['facebook_access_token']) && $_SESSION['facebook_access_toke
                     <th>Name</th>
                     <th>Description</th>
                     <th>Message</th>
-                    <th>Buffer</th>
+                    <th>Suggest</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -110,6 +102,32 @@ if (isset($_SESSION['facebook_access_token']) && $_SESSION['facebook_access_toke
         </div>
     </div>
 </div>
+
+<!--Model Buffer -->
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Suggest</h4>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="form-group">
+                        <textarea name="" id="" class="form-control" placeholder="Enter your message here"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Enter your link">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 <!-- jQuery -->

@@ -51,9 +51,6 @@ $(document).ready(function(){
 					}
 				}
 			});
-
-			//business logic...
-			//$btn.button('reset');
 		}
 
 	});
@@ -90,7 +87,7 @@ $(document).ready(function(){
 						$(html).appendTo(table);
 
 						$btn.button('reset');
-						alert('The Exporting has been successfully');
+						//alert('The Exporting has been successfully');
 					} else {
 						$btn.button('reset');
 						alert('The Exporting has an error. Please try again!');
@@ -98,10 +95,15 @@ $(document).ready(function(){
 				}
 			});
 
-			//business logic...
-			//$btn.button('reset');
 		}
 
 	});
 
 });
+
+
+// handle to show modal
+function showModel()
+{
+	$('#myModal').modal('show');
+}
