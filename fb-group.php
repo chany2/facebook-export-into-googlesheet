@@ -114,10 +114,10 @@ if (isset($_SESSION['facebook_access_token']) && $_SESSION['facebook_access_toke
             <div class="modal-body">
                 <form action="">
                     <div class="form-group">
-                        <textarea name="" id="" class="form-control" placeholder="Enter your message here"></textarea>
+                        <textarea name="messageBuffer" id="messageBuffer" class="form-control" placeholder="Enter your message here"></textarea>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Enter your link">
+                        <input name="linkBuffer" id="linkBuffer" type="text" class="form-control" placeholder="Enter your link">
                     </div>
                 </form>
             </div>

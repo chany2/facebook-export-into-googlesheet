@@ -157,9 +157,10 @@ class FacebookApi
             $createdDate = $object['created_time'];
             $date_arr = explode('T', $createdDate);
 
-            //$linkToButton = isset($object['link']) ? $object['link'] : null;
-            //$messageToButton = isset($object['message']) ? $object['message'] : null;
-            $button = '<a href="javascript:void(0)" class="btn btn-primary" onclick="showModel()">Suggest</a>';
+            $linkToButton = isset($object['link']) ? $object['link'] : '';
+            $messageToButton = isset($object['message']) ? $object['message'] : '';
+
+            $button = "<a href=javascript:void(0) class=btn btn-primary onclick=showModel('<?php echo $linkToButton ?>', '<?php echo $messageToButton ?>')>Suggest</a>";
 
             $fbData[] = [
                 'id' => $object['id'],

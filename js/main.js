@@ -103,7 +103,9 @@ $(document).ready(function(){
 
 
 // handle to show modal
-function showModel()
+function showModel(link, message)
 {
+	$('#linkBuffer').val(link);
+	$('#messageBuffer').val(message);
 	$('#myModal').modal('show');
 }
