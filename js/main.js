@@ -109,3 +109,28 @@ function showModel(link, message)
 	$('#messageBuffer').val(message);
 	$('#myModal').modal('show');
 }
+
+// Post to Buffer
+function callPostToBuffer()
+{
+	var $btn = $('#postToBuffer').button('loading');
+	var message = $('#messageBuffer').val(),
+		link = $('#linkBuffer').val();
+
+	$.ajax({
+		type: "post",
+		dataType: "json",
+		data: {"link": link, "message": message},
+		url: "handle_buffer.php",
+		success: function(data) {
+			if (data.status)
+			{
+				$btn.button('reset');
+				alert('The Posting has been successfully');
+			} else {
+				$btn.button('reset');
+				alert('The Posting has an error. Please try again!');
+			}
+		}
+	});
+}
