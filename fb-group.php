@@ -123,7 +123,7 @@ if (isset($_SESSION['facebook_access_token']) && $_SESSION['facebook_access_toke
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary">Post to Buffer</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

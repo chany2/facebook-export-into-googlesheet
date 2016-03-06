@@ -160,7 +160,7 @@ class FacebookApi
             $linkToButton = isset($object['link']) ? $object['link'] : '';
             $messageToButton = isset($object['message']) ? $object['message'] : '';
 
-            $button = "<a href=javascript:void(0) class=btn btn-primary onclick=showModel('<?php echo $linkToButton ?>', '<?php echo $messageToButton ?>')>Suggest</a>";
+            $button = "<a href='javascript:void(0)' class='btn btn-primary' onclick='showModel(\"" . $linkToButton ."\", \"" . $messageToButton ."\")'>Suggest</a>";
 
             $fbData[] = [
                 'id' => $object['id'],
